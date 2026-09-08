@@ -505,13 +505,50 @@ git push origin feat/collect-step1
 
 ## 14. 启动开发的入口
 
-按 `~/.claude/plans/md-woolly-papert.md` 中的 24 个 PR 切分实施，从 **Sprint 0（PR-0.1 ~ PR-0.4）** 开始。
+按 `~/.claude/plans/md-woolly-papert.md` 中的 24 个 PR 切分实施。
 
-每个 PR 完成后：
-1. 自查 §12 验收清单
-2. 跑全部门禁命令（§13）
-3. 推送分支 / Squash Merge 到 main
-4. 在本文件追加"已完成"标记（可选）
+---
+
+## 15. Sprint 状态（持久化进度，新会话从这里继续）
+
+**当前进度：17/24 PR（70.8%），17 commits 在 main**
+
+### ✅ 已完成
+- **Sprint 0**（PR-0.1 ~ 0.3）：Vite+React+TS+strict / Tailwind 3 绘本风 / Husky+lint-staged+Commitlint+Prettier
+- **Sprint 1**（PR-1.1 ~ 1.4）：localStorage+schema / weekKey ISO 8601 / exportImport 合并去重 / Zustand persist stores（card/progress/meta）
+- **Sprint 2**（PR-2.1 ~ 2.3）：HashRouter+5 路由 / 4 UI 组件（Button/Chip/Card/Modal）/ 首次启动守卫+12 种子词
+- **Sprint 3**（PR-3.1 ~ 3.6）：step1 选词 / step2 说清 / step3 造句 / step4 成段 / 完成弹窗+彩纸 / 顶部进度条+断点续做
+
+### ⏳ 待完成
+- **Sprint 4**（PR-4.1 ~ 4.5）：主页布局+CTA / 卡墙+⭐评级 / weekKey 分组 / 单卡详情+删除 / 设置页（导出/导入/清空/关于）
+- **Sprint 5**（PR-5.1 ~ 5.4）：引导 3 屏 / 引导接闭环 / 移动端适配 / README
+
+### 关键 bug 修复记录（commit 历史可追溯，新会话避免重蹈）
+1. `weekKey` 时区 bug：必须用 `getUTCDate()` 而非 `getDate()`（Asia/Shanghai 时区导致 23:59:59 跨日）
+2. `progressStore` 类型：`exactOptionalPropertyTypes: true` 下 literal `null` 不能赋值给 union type，需用 `null as unknown as Progress` 双重断言
+3. `storeStorage` 类型：getItem 必须返回**原始 JSON 字符串**（zustand `createJSONStorage` 内部会再 parse），不能直接用 `readStorage`（已 parse 成对象）
+4. `storeStorage` 前缀：zustand 传入的 key 已是完整 `w2c.meta`，不要重复加 `w2c.` 前缀
+5. `progressStore` 初次 hydration 时序：`HomePage` 需先 await `persist.hasHydrated()` 再判断 `onboardingDone`，否则初次渲染看到 default false 直接跳 /onboarding
+
+### 当前代码关键文件
+- `src/shared/lib/storage.ts` — localStorage 封装（`w2c.` 前缀）
+- `src/shared/lib/schema.ts` — 8 个类型守卫
+- `src/shared/lib/weekKey.ts` — ISO 8601 周键
+- `src/shared/lib/exportImport.ts` — 5 字段导出 / 合并去重 / 版本校验
+- `src/shared/lib/storeStorage.ts` — Zustand StateStorage 适配
+- `src/shared/consts/seeds.ts` — 12 种子词（统编三上第一单元）
+- `src/shared/types/index.ts` — 全局 TS 类型
+- `src/shared/ui/{Button,Chip,Card,Modal}.tsx` — 通用 UI
+- `src/entities/card/model/store.ts` — 闭环卡 store
+- `src/entities/progress/model/store.ts` — 断点 store
+- `src/entities/meta/model/store.ts` — 元数据 store
+- `src/entities/word/model/store.ts` — 种子词 store
+- `src/app/router.tsx` — HashRouter + 5 路由 + SplashGuard
+- `src/features/select-word|explain-reason|write-sentence|write-paragraph/ui/*.tsx` — 闭环 4 步 feature
+- `src/widgets/collect-shell|completion-modal|step-progress/ui/*.tsx` — 闭环 UI 块
+
+### 闭环主流程（已可走通）
+`/` 或 `/collect` → 选词 → `/collect/step2` 说清 → `/collect/step3` 造句 → `/collect/step4` 成段 → `/collect/done` 庆祝弹窗 + 入库 Card
 
 ---
 
