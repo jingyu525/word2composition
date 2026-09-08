@@ -1,15 +1,10 @@
 /**
- * CollectDonePage — 完成闭环占位（PR-3.5 替换为带彩纸的庆祝弹窗）
+ * CollectDonePage — 完成闭环庆祝页
+ * 显示彩纸 + 卡片预览 + 两个出口按钮
  */
 
-import { PlaceholderPage } from '@shared/ui/PlaceholderPage';
+import { CompletionCelebration } from '@widgets/completion-modal';
 
 export function CollectDonePage() {
-  return (
-    <PlaceholderPage
-      title="闭环完成 🎉"
-      route="/collect/done"
-      description="彩纸动效 + 卡片预览 — PR-3.5 实现"
-    />
-  );
+  return <CompletionCelebration />;
 }
