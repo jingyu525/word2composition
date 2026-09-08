@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Testing & verification artifacts
+.playwright-mcp/
+pr-*.png
+coverage/
