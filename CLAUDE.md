@@ -511,17 +511,15 @@ git push origin feat/collect-step1
 
 ## 15. Sprint 状态（持久化进度，新会话从这里继续）
 
-**当前进度：17/24 PR（70.8%），17 commits 在 main**
+**当前进度：24/24 PR（100%），26 commits on main** ✅ MVP 完成
 
-### ✅ 已完成
+### ✅ 全部 Sprint 已完成
 - **Sprint 0**（PR-0.1 ~ 0.3）：Vite+React+TS+strict / Tailwind 3 绘本风 / Husky+lint-staged+Commitlint+Prettier
 - **Sprint 1**（PR-1.1 ~ 1.4）：localStorage+schema / weekKey ISO 8601 / exportImport 合并去重 / Zustand persist stores（card/progress/meta）
 - **Sprint 2**（PR-2.1 ~ 2.3）：HashRouter+5 路由 / 4 UI 组件（Button/Chip/Card/Modal）/ 首次启动守卫+12 种子词
 - **Sprint 3**（PR-3.1 ~ 3.6）：step1 选词 / step2 说清 / step3 造句 / step4 成段 / 完成弹窗+彩纸 / 顶部进度条+断点续做
-
-### ⏳ 待完成
-- **Sprint 4**（PR-4.1 ~ 4.5）：主页布局+CTA / 卡墙+⭐评级 / weekKey 分组 / 单卡详情+删除 / 设置页（导出/导入/清空/关于）
-- **Sprint 5**（PR-5.1 ~ 5.4）：引导 3 屏 / 引导接闭环 / 移动端适配 / README
+- **Sprint 4**（PR-4.1 ~ 4.5）：主页+Header+CTA / 卡墙+⭐评级 / weekKey 分组 / 单卡详情+删除 / 设置页（导出/导入/清空/关于）
+- **Sprint 5**（PR-5.1 ~ 5.4）：引导 3 屏+接闭环 / 移动端适配 / README
 
 ### 关键 bug 修复记录（commit 历史可追溯，新会话避免重蹈）
 1. `weekKey` 时区 bug：必须用 `getUTCDate()` 而非 `getDate()`（Asia/Shanghai 时区导致 23:59:59 跨日）
@@ -539,16 +537,14 @@ git push origin feat/collect-step1
 - `src/shared/consts/seeds.ts` — 12 种子词（统编三上第一单元）
 - `src/shared/types/index.ts` — 全局 TS 类型
 - `src/shared/ui/{Button,Chip,Card,Modal}.tsx` — 通用 UI
-- `src/entities/card/model/store.ts` — 闭环卡 store
-- `src/entities/progress/model/store.ts` — 断点 store
-- `src/entities/meta/model/store.ts` — 元数据 store
-- `src/entities/word/model/store.ts` — 种子词 store
+- `src/entities/{card,progress,meta,word}/model/store.ts` — 4 个 store
 - `src/app/router.tsx` — HashRouter + 5 路由 + SplashGuard
-- `src/features/select-word|explain-reason|write-sentence|write-paragraph/ui/*.tsx` — 闭环 4 步 feature
-- `src/widgets/collect-shell|completion-modal|step-progress/ui/*.tsx` — 闭环 UI 块
+- `src/features/{select-word,explain-reason,write-sentence,write-paragraph,onboarding,export-data,import-data,delete-card}/ui/*.tsx` — 8 个 feature
+- `src/widgets/{header,card-wall,collect-shell,completion-modal,step-progress}/ui/*.tsx` — 5 个 widget
+- `src/pages/{home,onboarding,collect/*,card-detail,settings}/*.tsx` — 8 个页面
 
 ### 闭环主流程（已可走通）
-`/` 或 `/collect` → 选词 → `/collect/step2` 说清 → `/collect/step3` 造句 → `/collect/step4` 成段 → `/collect/done` 庆祝弹窗 + 入库 Card
+首次启动 → 引导 3 屏（欢迎/演示/起手） → 选词 → `/collect/step2` 说清 → `/collect/step3` 造句 → `/collect/step4` 成段 → `/collect/done` 庆祝弹窗 + 入库 Card → 卡墙展示
 
 ---
 
