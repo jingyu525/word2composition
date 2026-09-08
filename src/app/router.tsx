@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useMetaStore } from '@entities/meta/model/store';
 import { OnboardingPage } from '@pages/onboarding';
 import { HomePage } from '@pages/home';
-import { CollectPage } from '@pages/collect';
+import { CollectPage, CollectStep2Page } from '@pages/collect';
 import { CardDetailPage } from '@pages/card-detail';
 import { SettingsPage } from '@pages/settings';
 
@@ -40,6 +40,7 @@ export function AppRouter() {
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/collect" element={<CollectPage />} />
+        <Route path="/collect/step2" element={<CollectStep2Page />} />
         <Route path="/card/:id" element={<CardDetailPage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="/splash" element={<SplashGuard />} />
