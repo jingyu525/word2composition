@@ -6,6 +6,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { ParagraphWriter } from '@features/write-paragraph';
+import { CollectShell } from '@widgets/collect-shell';
 import { useProgressStore } from '@entities/progress/model/store';
 import { useCardStore } from '@entities/card/model/store';
 import { getWeekKey } from '@shared/lib/weekKey';
@@ -55,15 +56,13 @@ export function CollectStep4Page() {
   };
 
   return (
-    <main className="bg-bg text-deep flex min-h-screen flex-col p-6">
-      <div className="mx-auto w-full max-w-md">
-        <ParagraphWriter
-          word={word}
-          sceneIcon={sceneIcon}
-          sentence={sentence}
-          onConfirm={handleConfirm}
-        />
-      </div>
-    </main>
+    <CollectShell current={4}>
+      <ParagraphWriter
+        word={word}
+        sceneIcon={sceneIcon}
+        sentence={sentence}
+        onConfirm={handleConfirm}
+      />
+    </CollectShell>
   );
 }

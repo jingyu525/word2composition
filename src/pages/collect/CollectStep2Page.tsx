@@ -5,6 +5,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { ReasonSelector } from '@features/explain-reason';
+import { CollectShell } from '@widgets/collect-shell';
 import { useProgressStore } from '@entities/progress/model/store';
 import type { ReasonType } from '@shared/types';
 
@@ -18,7 +19,6 @@ export function CollectStep2Page() {
     return null;
   }
 
-  // narrow 后的本地变量
   const word = progress.word;
   const sceneIcon = progress.sceneIcon ?? '✏️';
 
@@ -41,10 +41,8 @@ export function CollectStep2Page() {
   };
 
   return (
-    <main className="bg-bg text-deep flex min-h-screen flex-col p-6">
-      <div className="mx-auto w-full max-w-md">
-        <ReasonSelector word={word} sceneIcon={sceneIcon} onConfirm={handleConfirm} />
-      </div>
-    </main>
+    <CollectShell current={2}>
+      <ReasonSelector word={word} sceneIcon={sceneIcon} onConfirm={handleConfirm} />
+    </CollectShell>
   );
 }

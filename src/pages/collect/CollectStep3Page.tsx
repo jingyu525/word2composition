@@ -5,6 +5,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { SentenceWriter } from '@features/write-sentence';
+import { CollectShell } from '@widgets/collect-shell';
 import { useProgressStore } from '@entities/progress/model/store';
 
 export function CollectStep3Page() {
@@ -38,16 +39,14 @@ export function CollectStep3Page() {
   };
 
   return (
-    <main className="bg-bg text-deep flex min-h-screen flex-col p-6">
-      <div className="mx-auto w-full max-w-md">
-        <SentenceWriter
-          word={word}
-          sceneIcon={sceneIcon}
-          reason={reason}
-          reasonFill={reasonFill}
-          onConfirm={handleConfirm}
-        />
-      </div>
-    </main>
+    <CollectShell current={3}>
+      <SentenceWriter
+        word={word}
+        sceneIcon={sceneIcon}
+        reason={reason}
+        reasonFill={reasonFill}
+        onConfirm={handleConfirm}
+      />
+    </CollectShell>
   );
 }
