@@ -10,10 +10,28 @@
     font-family: theme('fontFamily.sans');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* iOS Safari 100vh 修复 */
+    min-height: -webkit-fill-available;
   }
 
   body {
     min-height: 100vh;
+    min-height: -webkit-fill-available;
+    /* 禁止 iOS 弹性滚动（更适合表单场景） */
+    overscroll-behavior: none;
+    /* 禁用文本选择（8 岁孩子不需要长按复制） */
+    -webkit-user-select: none;
+    user-select: none;
+    /* 防止 tap 高亮 */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 输入框允许文本选择 */
+  input,
+  textarea,
+  [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
   }
 
   /* 触摸区最小尺寸：8 岁孩子友好 */
@@ -21,6 +39,13 @@
   [role='button'] {
     min-height: 44px;
     min-width: 44px;
+    /* 触摸反馈（按压高亮） */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* 安全区适配（iPhone 刘海 / 小黑条） */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
