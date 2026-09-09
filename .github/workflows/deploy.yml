@@ -38,7 +38,10 @@ jobs:
             pnpm-${{ runner.os }}-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --allow-build=esbuild
+        run: pnpm install --frozen-lockfile
+
+      - name: Rebuild esbuild (for pnpm 9 strict build scripts)
+        run: pnpm rebuild esbuild || true
 
       - name: Type check
         run: pnpm typecheck
